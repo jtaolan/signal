@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BriefCard } from '@/components/BriefCard';
 import { THEMES, THEME_COLORS } from '@/lib/themes';
 import { fetchFeeds } from '@/lib/api';
-import { ThemeKey } from '@/lib/types';
+import { Brief, ThemeKey } from '@/lib/types';
 
 interface Props {
   params: { theme: string };
