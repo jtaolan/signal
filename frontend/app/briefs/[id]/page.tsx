@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { fetchBrief } from '@/lib/api';
 import { ThemeBadge } from '@/components/ThemeBadge';
+import { Brief } from '@/lib/types';
 
 interface Props {
   params: { id: string };
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function BriefPage({ params }: Props) {
-  let brief;
+  let brief: Brief | undefined;
   try {
     brief = await fetchBrief(params.id);
   } catch {

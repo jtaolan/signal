@@ -2,11 +2,11 @@ import { Brief, FeedsResponse, Source } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? '';
 
+type NextFetchInit = RequestInit & { next?: { revalidate?: number | false; tags?: string[] } };
+
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_URL}${path}`, {
-    ...options,
-    next: { revalidate: 300 }, // 5-min ISR cache for GET requests
-  });
+  const fetchOptions: NextFetchInit = { ...options, next: { revalidate: 300 } };
+  const res = await fetch(`${API_URL}${path}`, fetchOptions);
   if (!res.ok) throw new Error(`API ${res.status}: ${res.statusText}`);
   return res.json() as Promise<T>;
 }
