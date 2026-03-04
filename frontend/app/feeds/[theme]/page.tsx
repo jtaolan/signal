@@ -30,7 +30,7 @@ export default async function ThemeFeedPage({ params, searchParams }: Props) {
   const config = THEMES[theme];
   const colors = THEME_COLORS[config.color];
 
-  let briefs = [];
+  let briefs: Brief[] = [];
   let nextCursor: string | null = null;
 
   try {
