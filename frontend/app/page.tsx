@@ -27,7 +27,6 @@ async function ThemeFeedSection({ theme }: { theme: ThemeKey }) {
 
   return (
     <section className="mb-14">
-      {/* Section header */}
       <div className="flex items-center justify-between mb-1 pb-3 border-b-2" style={{ borderColor: accentColor }}>
         <h2 className="font-bold text-lg text-gray-900">{config.label}</h2>
         <Link
@@ -55,37 +54,76 @@ async function ThemeFeedSection({ theme }: { theme: ThemeKey }) {
 
 export default async function HomePage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="max-w-3xl mx-auto px-4 py-14">
+
       {/* Hero */}
-      <div className="mb-12 pb-10 border-b border-gray-200">
-        <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: '#ee7012' }}>
+      <div className="mb-10 pb-10 border-b border-gray-200">
+        <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#ee7012' }}>
           Higher Education Intelligence
         </p>
-        <h1 className="text-4xl font-bold text-gray-900 leading-tight mb-4">
-          Decision Briefs for Academic Administrators
+        <h1 className="text-4xl font-bold text-gray-900 leading-tight mb-3">
+          Full-web coverage. 4 decision briefs.
         </h1>
-        <p className="text-gray-500 text-lg leading-relaxed mb-6">
-          AI-curated signals on accessibility compliance, AI governance, accreditation, and student
-          success — compressed into actionable briefs, delivered weekly.
+        <p className="text-xl text-gray-500 font-medium mb-6">
+          10 minutes to stay ahead.
         </p>
-        <div className="flex gap-3 flex-wrap">
+        <p className="text-gray-500 text-base leading-relaxed mb-8 max-w-2xl">
+          Every week, we scan hundreds of sources across higher education — RSS feeds, policy
+          reports, academic journals, and the full web — and distill them into 4 themed decision
+          briefs for academic administrators. No fluff. Just signal.
+        </p>
+        <div className="flex items-center gap-4 flex-wrap">
           <Link
             href="/subscribe"
-            className="text-sm font-semibold text-white px-5 py-2.5 rounded transition-colors"
+            className="text-sm font-bold text-white px-6 py-3 rounded transition-colors"
             style={{ backgroundColor: '#ee7012' }}
           >
-            Get Weekly Digest
+            Subscribe — free
           </Link>
-          <Link
-            href="/feeds/ai_governance"
-            className="text-sm font-semibold text-gray-700 border border-gray-300 px-5 py-2.5 rounded hover:bg-gray-50 transition-colors"
-          >
-            Browse All Briefs
-          </Link>
+          <span className="text-sm text-gray-400">Delivered every Monday morning</span>
         </div>
       </div>
 
-      {/* Feed sections */}
+      {/* What we cover */}
+      <div className="mb-14">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-5">
+          What we cover
+        </h2>
+        <div className="grid grid-cols-2 gap-3">
+          {(Object.keys(THEMES) as ThemeKey[]).map((key) => {
+            const config = THEMES[key];
+            const color = THEME_COLORS[config.color] ?? '#ee7012';
+            return (
+              <Link
+                key={key}
+                href={`/feeds/${key}`}
+                className="group flex items-start gap-3 p-4 rounded-lg border border-gray-100 hover:border-gray-300 transition-colors"
+              >
+                <div
+                  className="w-1 shrink-0 rounded-full mt-1"
+                  style={{ backgroundColor: color, minHeight: '40px' }}
+                />
+                <div>
+                  <p className="text-sm font-semibold text-gray-900 group-hover:underline leading-snug">
+                    {config.label}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1 leading-relaxed line-clamp-2">
+                    {config.description}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Latest briefs */}
+      <div className="mb-6 pb-3 border-b border-gray-200">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+          Latest Briefs
+        </h2>
+      </div>
+
       {(Object.keys(THEMES) as ThemeKey[]).map((theme) => (
         <ThemeFeedSection key={theme} theme={theme} />
       ))}
