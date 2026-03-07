@@ -18,6 +18,7 @@ interface ComputeStackProps extends cdk.StackProps {
 
 export class ComputeStack extends cdk.Stack {
   public readonly ingestionFunction: lambda.Function;
+  public readonly tavilyFunction: lambda.Function;
   public readonly digestFunction: lambda.Function;
 
   constructor(scope: Construct, id: string, props: ComputeStackProps) {
@@ -31,6 +32,7 @@ export class ComputeStack extends cdk.Stack {
       S3_BUCKET_AUDIO: props.audioBucket.bucketName,
       S3_BUCKET_ARCHIVE: props.archiveBucket.bucketName,
       ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY ?? '',
+      TAVILY_API_KEY: process.env.TAVILY_API_KEY ?? '',
       SES_FROM_EMAIL: process.env.SES_FROM_EMAIL ?? 'signals@example.com',
       FRONTEND_URL: process.env.FRONTEND_URL ?? 'https://signals.example.com',
     };
@@ -57,6 +59,17 @@ export class ComputeStack extends cdk.Stack {
       actions: ['ses:SendEmail', 'ses:SendRawEmail'],
       resources: ['*'],
     }));
+    lambdaRole.addToPolicy(new iam.PolicyStatement({
+      actions: ['lambda:InvokeFunction'],
+      resources: ['*'],
+    }));
+
+    const depsLayer = new lambda.LayerVersion(this, 'DepsLayer', {
+      layerVersionName: 'signals-deps',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../backend/layers/common')),
+      compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
+      description: 'anthropic, feedparser, trafilatura',
+    });
 
     const commonLambdaProps = {
       runtime: lambda.Runtime.PYTHON_3_12,
@@ -64,6 +77,7 @@ export class ComputeStack extends cdk.Stack {
       timeout: cdk.Duration.minutes(5),
       memorySize: 512,
       environment: commonEnv,
+      layers: [depsLayer],
     };
 
     // --- Ingestion functions ---
@@ -72,6 +86,14 @@ export class ComputeStack extends cdk.Stack {
       functionName: 'signals-rss-fetcher',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../backend/ingestion')),
       handler: 'rss_fetcher.handler',
+      timeout: cdk.Duration.minutes(10),
+    });
+
+    this.tavilyFunction = new lambda.Function(this, 'TavilyFetcher', {
+      ...commonLambdaProps,
+      functionName: 'signals-tavily-fetcher',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../backend/ingestion')),
+      handler: 'tavily_fetcher.handler',
       timeout: cdk.Duration.minutes(10),
     });
 

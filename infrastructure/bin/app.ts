@@ -25,5 +25,6 @@ const computeStack = new ComputeStack(app, 'SignalsComputeStack', {
 new SchedulerStack(app, 'SignalsSchedulerStack', {
   env,
   ingestionFunction: computeStack.ingestionFunction,
+  tavilyFunction: computeStack.tavilyFunction,
   digestFunction: computeStack.digestFunction,
 });

@@ -1,16 +1,20 @@
-import clsx from 'clsx';
-import { THEMES, THEME_COLORS } from '@/lib/themes';
+import { THEMES } from '@/lib/themes';
 import { ThemeKey } from '@/lib/types';
+
+const THEME_COLORS: Record<string, string> = {
+  amber: '#f59e0b',
+  purple: '#a855f7',
+  blue: '#3b82f6',
+  green: '#22c55e',
+};
 
 export function ThemeBadge({ theme }: { theme: ThemeKey }) {
   const config = THEMES[theme];
-  const colors = THEME_COLORS[config.color];
+  const color = THEME_COLORS[config.color] ?? '#ee7012';
   return (
     <span
-      className={clsx(
-        'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
-        colors.badge,
-      )}
+      className="text-xs font-semibold uppercase tracking-wide"
+      style={{ color }}
     >
       {config.label}
     </span>

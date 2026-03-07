@@ -15,11 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-50 min-h-screen text-gray-900">
+      <body className="bg-white min-h-screen text-gray-900">
         <Nav />
         <main>{children}</main>
-        <footer className="mt-16 border-t border-gray-200 py-8 text-center text-xs text-gray-400">
-          © {new Date().getFullYear()} Signals. AI-generated decision briefs for higher education.
+        <footer className="mt-20 border-t border-gray-100 py-10 text-center text-xs text-gray-400">
+          © {new Date().getFullYear()} Signals — AI-generated decision briefs for higher education.
         </footer>
       </body>
     </html>

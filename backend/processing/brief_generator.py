@@ -114,7 +114,11 @@ def handler(event, context):
     )
 
     try:
-        brief_data = json.loads(brief_response.content[0].text.strip())
+        raw = brief_response.content[0].text.strip()
+        if raw.startswith('```'):
+            lines = raw.split('\n')
+            raw = '\n'.join(lines[1:-1]).strip()
+        brief_data = json.loads(raw)
     except json.JSONDecodeError as e:
         print(f"JSON parse failed for {content_id}: {e}")
         content_table.update_item(

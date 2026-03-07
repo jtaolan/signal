@@ -2,3 +2,7 @@ node_modules/
 .next/
 .env*
 .DS_Store
+.claude/
+backend/layers/common/python/
+infrastructure/cdk.out/
+infrastructure/package-lock.json

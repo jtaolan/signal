@@ -20,7 +20,7 @@ CORS_HEADERS = {
     'Content-Type': 'application/json',
 }
 
-VALID_TYPES = {'rss', 'scrape', 'podcast'}
+VALID_TYPES = {'rss', 'scrape', 'podcast', 'tavily'}
 VALID_THEMES = {
     'accessibility_title2', 'ai_governance',
     'curriculum_accreditation', 'student_success', ''
