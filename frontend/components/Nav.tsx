@@ -79,12 +79,6 @@ export function Nav() {
               About
             </Link>
 
-            <Link
-              href="/admin"
-              className="text-sm text-gray-400 hover:text-gray-700 transition-colors"
-            >
-              Admin
-            </Link>
           </div>
 
           {/* Subscribe */}
