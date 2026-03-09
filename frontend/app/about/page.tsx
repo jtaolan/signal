@@ -104,7 +104,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <div className="flex gap-3 flex-wrap">
+      <div className="flex gap-3 flex-wrap mb-16">
         <Link
           href="/subscribe"
           className="text-sm font-bold text-white px-6 py-3 rounded transition-colors"
@@ -118,6 +118,47 @@ export default function AboutPage() {
         >
           View newsletters
         </Link>
+      </div>
+
+      {/* Author */}
+      <div className="border-t border-gray-200 pt-12">
+        <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">
+          Built by
+        </p>
+        <div className="flex items-center gap-5">
+          <img
+            src="https://jtaolan.github.io/images/Arches.JPG"
+            alt="Taolan Jiaohaer"
+            className="w-16 h-16 rounded-full object-cover shrink-0"
+          />
+          <div>
+            <Link
+              href="https://jtaolan.github.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-gray-900 hover:underline"
+              style={{ color: '#ee7012' }}
+            >
+              Taolan Jiaohaer
+            </Link>
+            <p className="text-sm text-gray-500 mt-0.5">
+              Research Assistant, Macro Lab · UCSD
+            </p>
+            <p className="text-sm text-gray-500 mt-1 leading-relaxed">
+              Computational Social Scientist with a strong interest in the intersection of
+              social science and computer science. MS in Computational Social Science, UCSD.
+            </p>
+            <Link
+              href="https://jtaolan.github.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-2 text-xs font-medium hover:underline"
+              style={{ color: '#ee7012' }}
+            >
+              jtaolan.github.io →
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
