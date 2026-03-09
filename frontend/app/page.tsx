@@ -18,7 +18,7 @@ const THEME_IMAGES: Record<ThemeKey, string> = {
   ai_governance:
     'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80',
   curriculum_accreditation:
-    'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80',
+    'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80',
   student_success:
     'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80',
 };
