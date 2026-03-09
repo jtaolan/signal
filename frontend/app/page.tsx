@@ -11,6 +11,18 @@ const THEME_COLORS: Record<string, string> = {
   green: '#22c55e',
 };
 
+// Curated Unsplash images per theme
+const THEME_IMAGES: Record<ThemeKey, string> = {
+  accessibility_title2:
+    'https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&q=80',
+  ai_governance:
+    'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80',
+  curriculum_accreditation:
+    'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80',
+  student_success:
+    'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80',
+};
+
 async function getLatestBriefs(theme: ThemeKey): Promise<Brief[]> {
   try {
     const data = await fetchFeeds(theme, undefined, 4);
@@ -89,7 +101,7 @@ export default async function HomePage() {
         <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-5">
           What we cover
         </h2>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-4">
           {(Object.keys(THEMES) as ThemeKey[]).map((key) => {
             const config = THEMES[key];
             const color = THEME_COLORS[config.color] ?? '#ee7012';
@@ -97,13 +109,20 @@ export default async function HomePage() {
               <Link
                 key={key}
                 href={`/feeds/${key}`}
-                className="group flex items-start gap-3 p-4 rounded-lg border border-gray-100 hover:border-gray-300 transition-colors"
+                className="group rounded-xl border border-gray-100 hover:border-gray-300 transition-colors overflow-hidden"
               >
-                <div
-                  className="w-1 shrink-0 rounded-full mt-1"
-                  style={{ backgroundColor: color, minHeight: '40px' }}
-                />
-                <div>
+                {/* Image */}
+                <div className="relative h-32 overflow-hidden">
+                  <img
+                    src={THEME_IMAGES[key]}
+                    alt={config.label}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {/* Color overlay bar at bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1" style={{ backgroundColor: color }} />
+                </div>
+                {/* Text */}
+                <div className="p-4">
                   <p className="text-sm font-semibold text-gray-900 group-hover:underline leading-snug">
                     {config.label}
                   </p>
