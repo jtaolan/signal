@@ -142,7 +142,7 @@ export default function AboutPage() {
               Taolan Jiaohaer
             </Link>
             <p className="text-sm text-gray-500 mt-0.5">
-              Research Assistant, Macro Lab · UCSD
+              Independent AI Developer
             </p>
             <p className="text-sm text-gray-500 mt-1 leading-relaxed">
               Computational Social Scientist with a strong interest in the intersection of
